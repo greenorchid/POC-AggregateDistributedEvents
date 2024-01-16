@@ -8,13 +8,13 @@ During a recent job interview, a hypothetical situation was presented. A transac
 - The design should be scalable, and persist perpetually.
 - Written in Python
 
-Initially I went with a queue-based approach, using [Celery] (https://celeryq.dev) and a Redis or RabbitMQ backend. The ability to have a fan-out messages and chain events is something I've worked with before and it's worked well. However, when disucssing this I wondered if an event-based design, using [kafka] (https://kafka.apache.org)-something that pre-existed in the company, would be a viable alternative. A [faust-streaming] (https://faust-streaming.github.io/faust/) streaming processor was mentioned as being a possible solution. Having little kafka experience, and new to the faust world, I decided to throw up a small POC to access it's viability.
+Initially I went with a queue-based approach, using [Celery](https://celeryq.dev) and a Redis or RabbitMQ backend. The ability to have a fan-out messages and chain events is something I've worked with before and it's worked well. However, when disucssing this I wondered if an event-based design, using [kafka](https://kafka.apache.org) -something that pre-existed in the company, would be a viable alternative. A [faust-streaming](https://faust-streaming.github.io/faust/) streaming processor was mentioned as being a possible solution. Having little kafka experience, and new to the faust world, I decided to throw up a small POC to access it's viability.
 
 ## Caveat Emptor!
 This is a very rudimentary mock-up. I've explcitly set a number of **sub-optimal** configurations. One of these is testing retrieval of co-partitioned events across multiple workers. In production, the event would likely be keyed to a single partition. I've also completely ignored data enrichment (although I'm guessing this would be an out-of-bound process anyway) and the persistence (e.g. NoSQL ingestion). I focused on what was new to me. I'm also not using `RocksDB` as a storage provider, something that would absolutely be necessary for table recovery in production. Unit tests etc. are not present. Again, this is not production ready.
 
 ## RUNME
-Pre-requisites: [docker] (https://docker.com)
+Pre-requisites: [docker](https://docker.com)
 ```
 docker compose up
 ```
